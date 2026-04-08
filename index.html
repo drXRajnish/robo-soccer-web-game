@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Robo-Soccer - An exciting browser-based robot soccer game with AI opponents, physics-based gameplay, and stunning visuals.">
+  <title>Robo-Soccer | Robot Football Championship</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Start Screen -->
+  <div id="start-screen" class="screen active">
+    <div class="stars"></div>
+    <div class="start-content">
+      <div class="logo-container">
+        <div class="robot-icon">⚽</div>
+        <h1 class="game-title">ROBO<span class="highlight">SOCCER</span></h1>
+        <p class="subtitle">ROBOT FOOTBALL CHAMPIONSHIP</p>
+      </div>
+      <div class="menu-buttons">
+        <button id="btn-start" class="btn btn-primary" onclick="startGame()">
+          <span class="btn-icon">▶</span> START MATCH
+        </button>
+        <button id="btn-how" class="btn btn-secondary" onclick="toggleHowTo()">
+          <span class="btn-icon">?</span> HOW TO PLAY
+        </button>
+      </div>
+      <div id="how-to-play" class="how-to-panel hidden">
+        <h3>CONTROLS</h3>
+        <div class="controls-grid">
+          <div class="control-item"><kbd>W A S D</kbd><span>Move Robot</span></div>
+          <div class="control-item"><kbd>SPACE</kbd><span>Boost Kick</span></div>
+          <div class="control-item"><kbd>TAB</kbd><span>Switch Robot</span></div>
+          <div class="control-item"><kbd>P</kbd><span>Pause Game</span></div>
+        </div>
+        <p class="tip">💡 Get close to the ball and move into it to kick. Use SPACE for a power boost!</p>
+      </div>
+      <div class="difficulty-selector">
+        <span class="diff-label">DIFFICULTY:</span>
+        <button class="diff-btn active" data-diff="easy" onclick="setDifficulty('easy', this)">EASY</button>
+        <button class="diff-btn" data-diff="medium" onclick="setDifficulty('medium', this)">MEDIUM</button>
+        <button class="diff-btn" data-diff="hard" onclick="setDifficulty('hard', this)">HARD</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="game-screen" class="screen">
+    <div id="game-hud">
+      <div class="hud-left">
+        <div class="team-score blue-team">
+          <span class="team-name">BLUE BOTS</span>
+          <span id="score-blue" class="score">0</span>
+        </div>
+      </div>
+      <div class="hud-center">
+        <div id="game-timer" class="timer">3:00</div>
+        <div id="game-status" class="status"></div>
+      </div>
+      <div class="hud-right">
+        <div class="team-score red-team">
+          <span id="score-red" class="score">0</span>
+          <span class="team-name">RED BOTS</span>
+        </div>
+      </div>
+    </div>
+    <canvas id="game-canvas"></canvas>
+    <div id="goal-overlay" class="overlay hidden">
+      <div class="goal-text">⚽ GOAL! ⚽</div>
+      <div id="goal-scorer" class="scorer-text"></div>
+    </div>
+    <div id="pause-overlay" class="overlay hidden">
+      <div class="pause-text">⏸ PAUSED</div>
+      <button class="btn btn-primary" onclick="togglePause()">RESUME</button>
+    </div>
+  </div>
+
+  <!-- Game Over Screen -->
+  <div id="gameover-screen" class="screen">
+    <div class="gameover-content">
+      <h2 id="result-text" class="result-title">FULL TIME</h2>
+      <div class="final-score">
+        <div class="final-team blue-team">
+          <span class="ft-name">BLUE BOTS</span>
+          <span id="final-blue" class="ft-score">0</span>
+        </div>
+        <div class="final-vs">VS</div>
+        <div class="final-team red-team">
+          <span id="final-red" class="ft-score">0</span>
+          <span class="ft-name">RED BOTS</span>
+        </div>
+      </div>
+      <div class="gameover-buttons">
+        <button class="btn btn-primary" onclick="restartGame()">
+          <span class="btn-icon">🔄</span> PLAY AGAIN
+        </button>
+        <button class="btn btn-secondary" onclick="goToMenu()">
+          <span class="btn-icon">🏠</span> MAIN MENU
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
